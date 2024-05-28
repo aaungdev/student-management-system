@@ -43,3 +43,15 @@ void insertStudent() {
 int main() {
     return 0;
 }
+
+// Function to view all student records
+void viewAllStudents() {
+    if (studentCount == 0) {
+        cout << "No student records found." << endl;
+        return;
+    }
+    for (int i = 0; i < studentCount; i++) {
+        cout << "ID: " << students[i].id << ", Name: " << students[i].name
+             << ", Age: " << students[i].age << ", Course: " << students[i].course << endl;
+    }
+}
