@@ -40,10 +40,6 @@ void insertStudent() {
     cout << "Student record inserted successfully." << endl;
 }
 
-int main() {
-    return 0;
-}
-
 // Function to view all student records
 void viewAllStudents() {
     if (studentCount == 0) {
@@ -54,4 +50,41 @@ void viewAllStudents() {
         cout << "ID: " << students[i].id << ", Name: " << students[i].name
              << ", Age: " << students[i].age << ", Course: " << students[i].course << endl;
     }
+}
+
+// Function to search for a student record by ID
+void searchStudent() {
+    int id;
+    cout << "Enter Student ID to search: ";
+    cin >> id;
+    for (int i = 0; i < studentCount; i++) {
+        if (students[i].id == id) {
+            cout << "ID: " << students[i].id << ", Name: " << students[i].name
+                 << ", Age: " << students[i].age << ", Course: " << students[i].course << endl;
+            return;
+        }
+    }
+    cout << "Student record not found." << endl;
+}
+
+// Function to delete a student record by ID
+void deleteStudent() {
+    int id;
+    cout << "Enter Student ID to delete: ";
+    cin >> id;
+    for (int i = 0; i < studentCount; i++) {
+        if (students[i].id == id) {
+            for (int j = i; j < studentCount - 1; j++) {
+                students[j] = students[j + 1];
+            }
+            studentCount--;
+            cout << "Student record deleted successfully." << endl;
+            return;
+        }
+    }
+    cout << "Student record not found." << endl;
+}
+
+int main() {
+    return 0;
 }
