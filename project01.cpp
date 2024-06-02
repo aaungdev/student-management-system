@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cstring>
+#include <iomanip> // For setw
+
 using namespace std;
 
 const int MAX_STUDENTS = 100;
@@ -16,6 +18,15 @@ struct Student {
 Student students[MAX_STUDENTS];
 int studentCount = 0;
 
+// Function to center text
+void printCentered(const string &text, int width) {
+    int padding = (width - text.length()) / 2;
+    for (int i = 0; i < padding; ++i) {
+        cout << " ";
+    }
+    cout << text << endl;
+}
+
 // Function to check if ID is unique
 bool isUniqueID(int id) {
     for (int i = 0; i < studentCount; i++) {
@@ -29,95 +40,98 @@ bool isUniqueID(int id) {
 // Function to insert a new student record
 void insertStudent() {
     if (studentCount >= MAX_STUDENTS) {
-        cout << "Student record list is full." << endl;
+        printCentered("Student record list is full.", 50);
         return;
     }
 
     int id, age;
     char name[MAX_NAME_LENGTH], course[MAX_COURSE_LENGTH];
 
-    cout << "Enter Student ID: ";
+    printCentered("Enter Student ID: ", 50);
     cin >> id;
     while (!isUniqueID(id)) {
-        cout << "ID already exists. Enter a unique Student ID: ";
+        printCentered("ID already exists. Enter a unique Student ID: ", 50);
         cin >> id;
     }
     students[studentCount].id = id;
 
     cin.ignore(); 
 
-    cout << "Enter Student Name: ";
+    printCentered("Enter Student Name: ", 50);
     cin.getline(students[studentCount].name, MAX_NAME_LENGTH);
 
-    cout << "Enter Student Age: ";
+    printCentered("Enter Student Age: ", 50);
     cin >> students[studentCount].age;
     while (cin.fail() || students[studentCount].age <= 0 || students[studentCount].age > 100) {
         cin.clear(); 
         cin.ignore(1000, '\n'); 
-        cout << "Invalid age. Please enter a valid age (1-100): ";
+        printCentered("Invalid age. Please enter a valid age (1-100): ", 50);
         cin >> students[studentCount].age;
     }
     cin.ignore();
 
-    cout << "Enter Student Course: ";
+    printCentered("Enter Student Course: ", 50);
     cin.getline(students[studentCount].course, MAX_COURSE_LENGTH);
 
     studentCount++;
-    cout << "Student record inserted successfully." << endl;
+    printCentered("Student record inserted successfully.", 50);
 }
 
 // Function to view all student records
 void viewAllStudents() {
     if (studentCount == 0) {
-        cout << "No student records found." << endl;
+        printCentered("No student records found.", 50);
         return;
     }
-    cout << "ID\tName\t\tAge\tCourse" << endl;
-    cout << "-------------------------------------------" << endl;
+    printCentered("ID\tName\t\tAge\tCourse", 50);
+    printCentered("-------------------------------------------", 50);
     for (int i = 0; i < studentCount; i++) {
-        cout << students[i].id << "\t" << students[i].name << "\t\t" << students[i].age << "\t" << students[i].course << endl;
+        cout << setw(25) << setfill(' ') << students[i].id << "\t" 
+             << setw(25) << setfill(' ') << students[i].name << "\t\t" 
+             << setw(25) << setfill(' ') << students[i].age << "\t" 
+             << setw(25) << setfill(' ') << students[i].course << endl;
     }
 }
 
 // Function to search for a student record by ID
 void searchStudentByID() {
     int id;
-    cout << "Enter Student ID to search: ";
+    printCentered("Enter Student ID to search: ", 50);
     cin >> id;
     for (int i = 0; i < studentCount; i++) {
         if (students[i].id == id) {
-            cout << "ID: " << students[i].id << ", Name: " << students[i].name
+            cout << setw(25) << setfill(' ') << "ID: " << students[i].id << ", Name: " << students[i].name
                  << ", Age: " << students[i].age << ", Course: " << students[i].course << endl;
             return;
         }
     }
-    cout << "Student record not found." << endl;
+    printCentered("Student record not found.", 50);
 }
 
 // Function to search for a student record by name
 void searchStudentByName() {
     char name[MAX_NAME_LENGTH];
-    cout << "Enter Student Name to search: ";
+    printCentered("Enter Student Name to search: ", 50);
     cin.ignore();
     cin.getline(name, MAX_NAME_LENGTH);
     for (int i = 0; i < studentCount; i++) {
         if (strcmp(students[i].name, name) == 0) {
-            cout << "ID: " << students[i].id << ", Name: " << students[i].name
+            cout << setw(25) << setfill(' ') << "ID: " << students[i].id << ", Name: " << students[i].name
                  << ", Age: " << students[i].age << ", Course: " << students[i].course << endl;
             return;
         }
     }
-    cout << "Student record not found." << endl;
+    printCentered("Student record not found.", 50);
 }
 
 // Function to delete a student record by ID
 void deleteStudent() {
     int id;
-    cout << "Enter Student ID to delete: ";
+    printCentered("Enter Student ID to delete: ", 50);
     cin >> id;
     for (int i = 0; i < studentCount; i++) {
         if (students[i].id == id) {
-            cout << "Are you sure you want to delete this student record? (y/n): ";
+            printCentered("Are you sure you want to delete this student record? (y/n): ", 50);
             char confirmation;
             cin >> confirmation;
             if (confirmation == 'y' || confirmation == 'Y') {
@@ -125,46 +139,46 @@ void deleteStudent() {
                     students[j] = students[j + 1];
                 }
                 studentCount--;
-                cout << "Student record deleted successfully." << endl;
+                printCentered("Student record deleted successfully.", 50);
             } else {
-                cout << "Deletion cancelled." << endl;
+                printCentered("Deletion cancelled.", 50);
             }
             return;
         }
     }
-    cout << "Student record not found." << endl;
+    printCentered("Student record not found.", 50);
 }
 
 // Function to update a student record by ID
 void updateStudent() {
     int id;
-    cout << "Enter Student ID to update: ";
+    printCentered("Enter Student ID to update: ", 50);
     cin >> id;
     for (int i = 0; i < studentCount; i++) {
         if (students[i].id == id) {
             cin.ignore(); // to ignore the newline character left by cin
 
-            cout << "Enter new Student Name: ";
+            printCentered("Enter new Student Name: ", 50);
             cin.getline(students[i].name, MAX_NAME_LENGTH);
 
-            cout << "Enter new Student Age: ";
+            printCentered("Enter new Student Age: ", 50);
             cin >> students[i].age;
             while (cin.fail() || students[i].age <= 0 || students[i].age > 100) {
                 cin.clear(); // Clear error flag
                 cin.ignore(1000, '\n'); // Ignore the rest of the input
-                cout << "Invalid age. Please enter a valid age (1-100): ";
+                printCentered("Invalid age. Please enter a valid age (1-100): ", 50);
                 cin >> students[i].age;
             }
             cin.ignore();
 
-            cout << "Enter new Student Course: ";
+            printCentered("Enter new Student Course: ", 50);
             cin.getline(students[i].course, MAX_COURSE_LENGTH);
 
-            cout << "Student record updated successfully." << endl;
+            printCentered("Student record updated successfully.", 50);
             return;
         }
     }
-    cout << "Student record not found." << endl;
+    printCentered("Student record not found.", 50);
 }
 
 // Function to sort students by name
@@ -178,37 +192,37 @@ void sortStudentsByName() {
             }
         }
     }
-    cout << "Students sorted by name." << endl;
+    printCentered("Students sorted by name.", 50);
 }
 
 // Function to display statistics
 void displayStatistics() {
     if (studentCount == 0) {
-        cout << "No student records to calculate statistics." << endl;
+        printCentered("No student records to calculate statistics.", 50);
         return;
     }
     int totalAge = 0;
     for (int i = 0; i < studentCount; i++) {
         totalAge += students[i].age;
     }
-    cout << "Total number of students: " << studentCount << endl;
-    cout << "Average age of students: " << static_cast<float>(totalAge) / studentCount << endl;
+    cout << setw(25) << setfill(' ') << "Total number of students: " << studentCount << endl;
+    cout << setw(25) << setfill(' ') << "Average age of students: " << static_cast<float>(totalAge) / studentCount << endl;
 }
 
 int main() {
     int choice;
     do {
-        cout << "\nStudent Management System Menu:" << endl;
-        cout << "1. Insert Student record" << endl;
-        cout << "2. View All Student records" << endl;
-        cout << "3. Search Student record by ID" << endl;
-        cout << "4. Search Student record by Name" << endl;
-        cout << "5. Delete Student record" << endl;
-        cout << "6. Update Student record" << endl;
-        cout << "7. Sort Students by Name" << endl;
-        cout << "8. Display Statistics" << endl;
-        cout << "9. Exit" << endl;
-        cout << "Enter your choice: ";
+        printCentered("\nStudent Management System Menu:", 50);
+        printCentered("1. Insert Student record", 50);
+        printCentered("2. View All Student records", 50);
+        printCentered("3. Search Student record by ID", 50);
+        printCentered("4. Search Student record by Name", 50);
+        printCentered("5. Delete Student record", 50);
+        printCentered("6. Update Student record", 50);
+        printCentered("7. Sort Students by Name", 50);
+        printCentered("8. Display Statistics", 50);
+        printCentered("9. Exit", 50);
+        printCentered("Enter your choice: ", 50);
         cin >> choice;
 
         switch (choice) {
@@ -237,10 +251,10 @@ int main() {
                 displayStatistics();
                 break;
             case 9:
-                cout << "Exiting the program." << endl;
+                printCentered("Exiting the program.", 50);
                 break;
             default:
-                cout << "Invalid choice. Please try again." << endl;
+                printCentered("Invalid choice. Please try again.", 50);
         }
     } while (choice != 9);
 
