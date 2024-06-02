@@ -21,19 +21,31 @@ This is my first-year project from LaGuardia Community College, demonstrating my
 
 This image shows the initial prompt where the user is asked to enter their choice from the menu.
 
+----
+
 ### Insert Student Information
 
 ![Insert Student Information](./images/insert.png)
 
 This image shows the process of inserting a new student record into the system.
 
+----
+
 ### Search Student Record by ID
 
 ![Search Student Record by ID](./images/search.png)
 
 This image illustrates the functionality of searching for a student record by ID.
+
+----
+
 ### Display Statistics
 
 ![Display Statistics](./images/statistics.png)
 
 This image presents the statistical information of the student records.
+
+----
+
+###  Thank you for visiting my student management system repository.
+
