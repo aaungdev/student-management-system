@@ -212,7 +212,7 @@ void displayStatistics() {
 int main() {
     int choice;
     do {
-        printCentered("\nStudent Management System Menu:", 50);
+        printCentered("\n--------Student Management System Menu:-----------\n", 50);
         printCentered("1. Insert Student record", 50);
         printCentered("2. View All Student records", 50);
         printCentered("3. Search Student record by ID", 50);
@@ -222,7 +222,7 @@ int main() {
         printCentered("7. Sort Students by Name", 50);
         printCentered("8. Display Statistics", 50);
         printCentered("9. Exit", 50);
-        printCentered("Enter your choice: ", 50);
+        printCentered("Enter your choice: \n", 50);
         cin >> choice;
 
         switch (choice) {
